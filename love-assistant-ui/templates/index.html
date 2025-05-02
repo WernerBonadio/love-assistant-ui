@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>💌 Love Assistant</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #fff0f5;
+            color: #333;
+            max-width: 600px;
+            margin: 3em auto;
+            padding: 2em;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(255,192,203,0.5);
+        }
+
+        h2 {
+            color: #c71585;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-top: 1em;
+        }
+
+        button {
+            padding: 10px 16px;
+            background-color: #ff69b4;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff1493;
+        }
+
+        #chat-box {
+            margin-top: 2em;
+        }
+
+        .message {
+            margin: 0.8em 0;
+        }
+
+        .user {
+            font-weight: bold;
+            color: #444;
+        }
+
+        .bot {
+            color: #d63384;
+        }
+    </style>
+</head>
+<body>
+    <h2>💘 Love Assistant</h2>
+
+    <input type="text" id="user-input" placeholder="Tell me what your heart feels...">
+    <button onclick="sendMessage()">Send 💌</button>
+
+    <div id="chat-box"></div>
+
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById("user-input");
+            const message = input.value;
+            if (!message.trim()) return;
+
+            const chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<div class="message user">🧑‍💬 <span class=\"user\">You:</span> ${message}</div>`;
+            input.value = "";
+
+            const res = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message })
+            });
+
+            const data = await res.json();
+            chatBox.innerHTML += `<div class="message bot">🤖 <span class=\"bot\">Bot:</span> ${data.response}</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+</body>
+</html>
