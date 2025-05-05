@@ -1,17 +1,21 @@
 import os
 from flask import Flask, request, jsonify, render_template
 from openai import OpenAI
-from dotenv import load_dotenv, find_dotenv
+#from dotenv import load_dotenv, find_dotenv
 
-dotenv_path = find_dotenv()
+#dotenv_path = find_dotenv()
 #print("📄 Loading .env from:", dotenv_path)
-load_dotenv(dotenv_path, override=True)
+#load_dotenv(dotenv_path, override=True)
 #print("🔐 FINAL OPENAI_API_KEY =", os.getenv("OPENAI_API_KEY"))
+
+import os
+api_key = os.getenv("OPENAI_API_KEY")
+print("✅ Loaded API key starts with:", api_key[:10] if api_key else "❌ Not found")
 
 app = Flask(__name__)
 
 openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-assistant_id = os.getenv("ASSISTANT_ID")
+assistant_id = os.getenv("OPENAI_ASSISTANT_ID")
 
 @app.route("/")
 def index():

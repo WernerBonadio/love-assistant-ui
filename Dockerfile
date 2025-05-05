@@ -8,12 +8,18 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the app code
+# Copy all source files, including .env
 COPY . .
+
+# Set environment variable for Flask
+ENV PORT=8080
 
 # Expose the port Flask runs on
 EXPOSE 8080
 
+COPY . .
+
 # Start the Flask app
 CMD ["python", "app.py"]
+
 
