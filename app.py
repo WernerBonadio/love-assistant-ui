@@ -12,10 +12,11 @@ import os
 api_key = os.getenv("OPENAI_API_KEY")
 print("✅ Loaded API key starts with:", api_key[:10] if api_key else "❌ Not found")
 
-app = Flask(__name__)
-
-openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+openai_client = OpenAI(api_key=api_key)
 assistant_id = os.getenv("OPENAI_ASSISTANT_ID")
+print("🧪 Loaded Assistant ID:", assistant_id if assistant_id else "❌ NOT FOUND")
+
+app = Flask(__name__)
 
 @app.route("/")
 def index():

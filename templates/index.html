@@ -115,6 +115,13 @@
             thinking.classList.remove("show");
             setTimeout(() => thinking.style.display = "none", 500); // hide after fade-out
         }
+       // ✅ Enter key support
+  document.getElementById("user-input").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendMessage();
+     }
+    });
     </script>
 </body>
 
